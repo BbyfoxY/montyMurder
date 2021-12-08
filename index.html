@@ -1,1 +1,561 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Monty Murder</title>
+    <meta charset="UTF-8" />
+    <style>
+      .sectionleft {
+        font-family: cursive;
+        float: left;
+        width: 80%;
+      }
+
+      .sectionRight {
+        font-family: cursive;
+        float: right;
+        width: 20%;
+      }
+
+      .score {
+        background-color: rgb(225, 225, 225, 0.6);
+        width: 50%;
+        padding: 10px;
+        border-radius: 200px;
+        font-weight: bold;
+      }
+
+      .clicker img {
+        position: relative;
+        transition: all 0.2s ease-in-out;
+      }
+
+      .clicker img:hover {
+        transform: scale(1.1);
+      }
+      .clicker img:active {
+        transform: scale(0.75);
+      }
+
+      .shop {
+        background-color: #b6b6b6;
+        transition: all 0.2s ease-in-out;
+        border-radius: 200px;
+        width: 100%;
+        margin: 10px 0px 10px 0px;
+      }
+
+      .shop:hover {
+        background-color: #c8c8c8;
+        transition: all 0.2s ease-in-out;
+      }
+
+      .shop #image {
+        width: 25%;
+      }
+
+      .shop img {
+        height: 64px;
+        width: 64px;
+      }
+
+      .shop #nameCost p {
+        margin: 0px;
+        width: 60%;
+      }
+
+      .shop #nameCost p:first-of-type {
+        font-size: 24px;
+      }
+
+      .shop #amount {
+        font-size: 48px;
+        font-family: roboto;
+        width: 15%;
+      }
+
+      #resetbutton {
+        background-color: red;
+        border-radius: 200px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="sectionleft">
+      <center>
+        <div class="score">
+          <button id="resetbutton" onclick="resetGame();">Reset Game</button>
+          <p><span id="score">0</span> Clicks</p>
+          <p><span id="scorepersecond">0</span> Clicks earned per second</p>
+          <p><span id="rebirths">0</span> Rebirths</p>
+          <p>ctrl + s to save</p>
+        </div>
+        <div class="clicker">
+          <img
+            src="images/montyMoleGlasses.png"
+            width="150"
+            onclick="addToScore(clickPow)"
+          />
+        </div>
+      </center>
+    </div>
+    <div id="sectionright">
+      <table class="shop" onclick="buyCursor()">
+        <tr>
+          <td id="image"><img src="images/mouse-cursor.png" /></td>
+          <td id="nameCost">
+            <p>Cursor</p>
+            <p><span id="cursorcost">100</span> clicks</p>
+          </td>
+          <td id="amount"><span id="cursors">0</span></td>
+        </tr>
+      </table>
+
+      <table class="shop" onclick="buyBaseballBat()">
+        <tr>
+          <td id="image"><img src="images/bat.jpeg" /></td>
+          <td id="nameCost">
+            <p>Baseball Bat</p>
+            <p><span id="baseballbatcost">1,000</span> clicks</p>
+          </td>
+          <td id="amount"><span id="baseballbats">0</span></td>
+        </tr>
+      </table>
+
+      <table class="shop" onclick="buyHandgun()">
+        <tr>
+          <td id="image"><img src="images/ahem.jpeg" /></td>
+          <td id="nameCost">
+            <p>Handgun</p>
+            <p><span id="handguncost">10,000</span> clicks</p>
+          </td>
+          <td id="amount"><span id="handguns">0</span></td>
+        </tr>
+      </table>
+
+      <table class="shop" onclick="buyAR15()">
+        <tr>
+          <td id="image"><img src="images/AHEM-HEM.jpeg" /></td>
+          <td id="nameCost">
+            <p>AR-15</p>
+            <p><span id="ar15cost">100,000</span> clicks</p>
+          </td>
+          <td id="amount"><span id="ar15s">0</span></td>
+        </tr>
+      </table>
+
+      <table class="shop" onclick="buyMissile()">
+        <tr>
+          <td id="image"><img src="images/missile.jpeg" /></td>
+          <td id="nameCost">
+            <p>Missile</p>
+            <p><span id="missilecost">1,000,000</span> clicks</p>
+          </td>
+          <td id="amount"><span id="missiles">0</span></td>
+        </tr>
+      </table>
+
+      <table class="shop" onclick="buyNuke()">
+        <tr>
+          <td id="image"><img src="images/nuke.jpeg" /></td>
+          <td id="nameCost">
+            <p>Nuke</p>
+            <p><span id="nukecost">10,000,000</span> clicks</p>
+          </td>
+          <td id="amount"><span id="nukes">0</span></td>
+        </tr>
+      </table>
+
+      <table class="shop" onclick="buyWorldEater()">
+        <tr>
+          <td id="image"><img src="images/earth.jpeg" /></td>
+          <td id="nameCost">
+            <p>World Eater</p>
+            <p><span id="worldeatercost">100,000,000</span> clicks</p>
+          </td>
+          <td id="amount"><span id="worldeaters">0</span></td>
+        </tr>
+      </table>
+
+      <table class="shop" onclick="buySystemEater()">
+        <tr>
+          <td id="image"><img src="images/system.jpeg" /></td>
+          <td id="nameCost">
+            <p>Solar System Eater</p>
+            <p><span id="systemeatercost">1,000,000,000</span> clicks</p>
+          </td>
+          <td id="amount"><span id="systemeaters">0</span></td>
+        </tr>
+      </table>
+
+      <table class="shop" onclick="buyGalaxyEater()">
+        <tr>
+          <td id="image"><img src="images/galaxy.jpeg" /></td>
+          <td id="nameCost">
+            <p>Galaxy Eater</p>
+            <p><span id="galaxyeatercost">10,000,000,000</span> clicks</p>
+          </td>
+          <td id="amount"><span id="galaxyeaters">0</span></td>
+        </tr>
+      </table>
+
+      <table class="shop" onclick="buyUniverseEater()">
+        <tr>
+          <td id="image"><img src="images/universe.jpeg" /></td>
+          <td id="nameCost">
+            <p>Universe Eater (rebirth)</p>
+            <p><span id="universeeatercost">10,000,000,000,000</span> clicks</p>
+          </td>
+          <td id="amount"><span id="universeeaters">0</span></td>
+        </tr>
+      </table>
+    </div>
+    <script>
+      var score = 0;
+      var rebirths = 0;
+      var clickPow = 1;
+
+      var cursorCost = 100 / (rebirths + 1);
+      var cursors = 0;
+
+      var baseballBatCost = 1000 / (rebirths + 1);
+      var baseballBats = 0;
+
+      var handgunCost = 10000 / (rebirths + 1);
+      var handguns = 0;
+
+      var AR15Cost = 100000 / (rebirths + 1);
+      var AR15s = 0;
+
+      var missileCost = 1000000 / (rebirths + 1);
+      var missiles = 0;
+
+      var nukeCost = 10000000 / (rebirths + 1);
+      var nukes = 0;
+
+      var worldEaterCost = 100000000 / (rebirths + 1);
+      var worldEaters = 0;
+
+      var systemEaterCost = 1000000000 / (rebirths + 1);
+      var systemEaters = 0;
+
+      var galaxyEaterCost = 10000000000 / (rebirths + 1);
+      var galaxyEaters = 0;
+
+      var universeEaterCost = 10000000000000;
+      //////////////////////////////////////////////////
+      function buyCursor() {
+        if (score >= cursorCost) {
+          score = score - cursorCost;
+          cursors = cursors + 1;
+          cursorCost = Math.round(cursorCost * 1.15);
+
+          document.getElementById("score").innerHTML = score;
+          document.getElementById("cursorcost").innerHTML = cursorCost;
+          document.getElementById("cursors").innerHTML = cursors;
+          updateScorePerSecond();
+        }
+      }
+
+      function buyBaseballBat() {
+        if (score >= baseballBatCost) {
+          score = score - baseballBatCost;
+          baseballBats = baseballBats + 1;
+          baseballBatCost = Math.round(baseballBatCost * 1.15);
+
+          document.getElementById("score").innerHTML = score;
+          document.getElementById(
+            "baseballbatcost"
+          ).innerHTML = baseballBatCost;
+          document.getElementById("baseballbats").innerHTML = baseballBats;
+          updateScorePerSecond();
+        }
+      }
+
+      function buyHandgun() {
+        if (score >= handgunCost) {
+          score = score - handgunCost;
+          handguns = handguns + 1;
+          handgunCost = Math.round(handgunCost * 1.15);
+
+          document.getElementById("score").innerHTML = score;
+          document.getElementById("handguncost").innerHTML = handgunCost;
+          document.getElementById("handguns").innerHTML = handguns;
+          updateScorePerSecond();
+        }
+      }
+
+      function buyAR15() {
+        if (score >= AR15Cost) {
+          score = score - AR15Cost;
+          AR15s = AR15s + 1;
+          AR15Cost = Math.round(AR15Cost * 1.15);
+
+          document.getElementById("score").innerHTML = score;
+          document.getElementById("ar15cost").innerHTML = AR15Cost;
+          document.getElementById("ar15s").innerHTML = AR15s;
+          updateScorePerSecond();
+        }
+      }
+
+      function buyMissile() {
+        if (score >= missileCost) {
+          score = score - missileCost;
+          missiles = missiles + 1;
+          missileCost = Math.round(missileCost * 1.15);
+
+          document.getElementById("score").innerHTML = score;
+          document.getElementById("missilecost").innerHTML = missileCost;
+          document.getElementById("missiles").innerHTML = missiles;
+          updateScorePerSecond();
+        }
+      }
+
+      function buyNuke() {
+        if (score >= nukeCost) {
+          score = score - nukeCost;
+          nukes = nukes + 1;
+          nukeCost = Math.round(nukeCost * 1.15);
+
+          document.getElementById("score").innerHTML = score;
+          document.getElementById("nukecost").innerHTML = nukeCost;
+          document.getElementById("nukes").innerHTML = nukes;
+          updateScorePerSecond();
+        }
+      }
+
+      function buyWorldEater() {
+        if (score >= worldEaterCost) {
+          score = score - worldEaterCost;
+          worldEaters = worldEaters + 1;
+          worldEaterCost = Math.round(worldEaterCost * 1.15);
+
+          document.getElementById("score").innerHTML = score;
+          document.getElementById("worldeatercost").innerHTML = worldEaterCost;
+          document.getElementById("worldeaters").innerHTML = worldEaters;
+          updateScorePerSecond();
+        }
+      }
+
+      function buySystemEater() {
+        if (score >= systemEaterCost) {
+          score = score - systemEaterCost;
+          systemEaters = systemEaters + 1;
+          systemEaterCost = Math.round(systemEaterCost * 1.15);
+
+          document.getElementById("score").innerHTML = score;
+          document.getElementById(
+            "systemeatercost"
+          ).innerHTML = systemEaterCost;
+          document.getElementById("systemeaters").innerHTML = systemEaters;
+          updateScorePerSecond();
+        }
+      }
+
+      function buyGalaxyEater() {
+        if (score >= galaxyEaterCost) {
+          score = score - galaxyEaterCost;
+          galaxyEaters = galaxyEaters + 1;
+          galaxyEaterCost = Math.round(galaxyEaterCost * 1.15);
+
+          document.getElementById("score").innerHTML = score;
+          document.getElementById(
+            "galaxyeatercost"
+          ).innerHTML = galaxyEaterCost;
+          document.getElementById("galaxyeaters").innerHTML = galaxyEaters;
+          updateScorePerSecond();
+        }
+      }
+
+      function buyUniverseEater() {
+        if (score >= universeEaterCost) {
+          score = 0;
+          addToRebirths(1);
+          cursors = 0;
+          cursorCost = 10;
+          baseballBats = 0;
+          baseballBatCost = 100;
+          handguns = 0;
+          handgunCost = 1000;
+          AR15s = 0;
+          AR15Cost = 10000;
+          missiles = 0;
+          missileCost = 0;
+          nukes = 0;
+          nukeCost = 1000000;
+          worldEaters = 0;
+          worldEaterCost = 10000000;
+          systemEaters = 0;
+          systemEaterCost = 100000000;
+          galaxyEaters = 0;
+          galaxyEaterCost = 1000000000;
+          universeEaterCost = universeEaterCost * (rebirths + 1);
+
+          document.getElementById("score").innerHTML = score;
+          document.getElementById(
+            "universeeatercost"
+          ).innerHTML = universeEaterCost;
+        }
+      }
+      //////////////////////////////////////////////////
+      function addToScore(amount) {
+        score = score + amount;
+        document.getElementById("score").innerHTML = score;
+      }
+
+      function addToRebirths(amount) {
+        rebirths = rebirths + amount;
+        document.getElementById("rebirths").innerHTML = rebirths;
+      }
+
+      function updateScorePerSecond() {
+        scorePerSecond =
+          cursors +
+          baseballBats * 10 +
+          handguns * 100 +
+          AR15s * 1000 +
+          missiles * 10000 +
+          nukes * 100000 +
+          worldEaters * 1000000 +
+          systemEaters * 10000000 +
+          galaxyEaters * 100000000;
+        document.getElementById("scorepersecond").innerHTML = scorePerSecond;
+      }
+
+      function loadGame() {
+        var savedGame = JSON.parse(localStorage.getItem("gameSave"));
+        if (typeof savedGame.score !== "undefined") score = savedGame.score;
+        if (typeof savedGame.rebirths !== "undefined")
+          rebirths = savedGame.rebirths;
+        if (typeof savedGame.clickPow !== "undefined")
+          clickPow = savedGame.clickPow;
+        if (typeof savedGame.cursors !== "undefined")
+          cursors = savedGame.cursors;
+        if (typeof savedGame.cursorCost !== "undefined")
+          cursorCost = savedGame.cursorCost;
+        if (typeof savedGame.baseballBats !== "undefined")
+          baseballBats = savedGame.baseballBats;
+        if (typeof savedGame.baseballBatCost !== "undefined")
+          baseballBatCost = savedGame.baseballBatCost;
+        if (typeof savedGame.handguns !== "undefined")
+          handguns = savedGame.handguns;
+        if (typeof savedGame.handgunCost !== "undefined")
+          handgunCost = savedGame.handgunCost;
+        if (typeof savedGame.AR15s !== "undefined") AR15s = savedGame.AR15s;
+        if (typeof savedGame.AR15Cost !== "undefined")
+          AR15Cost = savedGame.AR15Cost;
+        if (typeof savedGame.missiles !== "undefined")
+          missiles = savedGame.missiles;
+        if (typeof savedGame.missileCost !== "undefined")
+          missileCost = savedGame.missileCost;
+        if (typeof savedGame.nukes !== "undefined") nukes = savedGame.nukes;
+        if (typeof savedGame.nukeCost !== "undefined")
+          nukeCost = savedGame.nukeCost;
+        if (typeof savedGame.worldEaters !== "undefined")
+          worldEaters = savedGame.worldEaters;
+        if (typeof savedGame.worldEaterCost !== "undefined")
+          worldEaterCost = savedGame.worldEaterCost;
+        if (typeof savedGame.systemEaters !== "undefined")
+          systemEaters = savedGame.systemEaters;
+        if (typeof savedGame.systemEaterCost !== "undefined")
+          systemEaterCost = savedGame.systemEaterCost;
+        if (typeof savedGame.galaxyEaters !== "undefined")
+          galaxyEaters = savedGame.galaxyEaters;
+        if (typeof savedGame.galaxyEaterCost !== "undefined")
+          galaxyEaterCost = savedGame.galaxyEaterCost;
+        if (typeof savedGame.universeEaterCost !== "undefined")
+          universeEaterCost = savedGame.universeEaterCost;
+      }
+
+      function saveGame() {
+        var gameSave = {
+          score: score,
+          rebirths: rebirths,
+          clickPow: clickPow,
+          cursors: cursors,
+          cursorCost: cursorCost,
+          baseballBats: baseballBats,
+          baseballBatCost: baseballBatCost,
+          handguns: handguns,
+          handgunCost: handgunCost,
+          AR15s: AR15s,
+          AR15Cost: AR15Cost,
+          missiles: missiles,
+          missileCost: missileCost,
+          nukes: nukes,
+          nukeCost: nukeCost,
+          worldEaters: worldEaters,
+          worldEaterCost: worldEaterCost,
+          systemEaters: systemEaters,
+          systemEaterCost: systemEaterCost,
+          galaxyEaters: galaxyEaters,
+          universeEaterCost: universeEaterCost
+        };
+        localStorage.setItem("gameSave", JSON.stringify(gameSave));
+      }
+
+      function resetGame() {
+        if (confirm("Do you want to reset your game???")) {
+          var gameSave = {};
+          localStorage.setItem("gameSave", JSON.stringify(gameSave));
+          location.reload();
+        }
+      }
+
+      window.onload = function () {
+        loadGame();
+        updateScorePerSecond();
+        document.getElementById("score").innerHTML = score;
+        document.getElementById("cursorcost").innerHTML = cursorCost;
+        document.getElementById("cursors").innerHTML = cursors;
+        document.getElementById("baseballbatcost").innerHTML = baseballBatCost;
+        document.getElementById("baseballbats").innerHTML = baseballBats;
+        document.getElementById("handguncost").innerHTML = handgunCost;
+        document.getElementById("handguns").innerHTML = handguns;
+        document.getElementById("ar15cost").innerHTML = AR15Cost;
+        document.getElementById("ar15s").innerHTML = AR15s;
+        document.getElementById("missilecost").innerHTML = missileCost;
+        document.getElementById("missiles").innerHTML = missiles;
+        document.getElementById("nukecost").innerHTML = nukeCost;
+        document.getElementById("nukes").innerHTML = nukes;
+        document.getElementById("worldeatercost").innerHTML = worldEaterCost;
+        document.getElementById("worldeaters").innerHTML = worldEaters;
+        document.getElementById("systemeatercost").innerHTML = systemEaterCost;
+        document.getElementById("systemeaters").innerHTML = systemEaters;
+        document.getElementById("galaxyeatercost").innerHTML = galaxyEaterCost;
+        document.getElementById("galaxyeaters").innerHTML = galaxyEaters;
+        document.getElementById(
+          "universeeatercost"
+        ).innerHTML = universeEaterCost;
+      };
+      //////////////////////////////////////////////////
+      setInterval(function () {
+        score = score + cursors;
+        score = score + baseballBats * 10;
+        score = score + handguns * 100;
+        score = score + AR15s * 1000;
+        score = score + missiles * 10000;
+        score = score + nukes * 100000;
+        score = score + worldEaters * 1000000;
+        score = score + systemEaters * 10000000;
+        document.getElementById("score").innerHTML = score;
+      }, 1000);
+
+      setInterval(function () {
+        saveGame();
+      }, 30000);
+
+      document.addEventListener(
+        "keydown",
+        function (event) {
+          if (event.ctrlKey && event.which === 83) {
+            event.preventDefault();
+            saveGame();
+          }
+        },
+        false
+      );
+    </script>
+  </body>
+</html>
 
