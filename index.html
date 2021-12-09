@@ -395,8 +395,10 @@
           document.getElementById(
             "universeeatercost"
           ).innerHTML = universeEaterCost;
+          updateEverything();
         }
       }
+
       //////////////////////////////////////////////////
       function addToScore(amount) {
         score = score + amount;
@@ -406,6 +408,27 @@
       function addToRebirths(amount) {
         rebirths = rebirths + amount;
         document.getElementById("rebirths").innerHTML = rebirths;
+      }
+      
+      function updateEverything() {
+        document.getElementById("cursorcost").innerHTML = 0;
+        document.getElementById("cursors").innerHTML = 0;
+        document.getElementById("baseballbatcost").innerHTML = 0;
+        document.getElementById("baseballbats").innerHTML = 0;
+        document.getElementById("handguncost").innerHTML = 0;
+        document.getElementById("handguns").innerHTML = 0;
+        document.getElementById("ar15cost").innerHTML = 0;
+        document.getElementById("ar15s").innerHTML = 0;
+        document.getElementById("missilecost").innerHTML = 0;
+        document.getElementById("missiles").innerHTML = 0;
+        document.getElementById("nukecost").innerHTML = 0;
+        document.getElementById("nukes").innerHTML = 0;
+        document.getElementById("worldeatercost").innerHTML = 0;
+        document.getElementById("worldeaters").innerHTML = 0;
+        document.getElementById("solarsystemeatercost").innerHTML = 0;
+        document.getElementById("solarsystemeaters").innerHTML = 0;
+        document.getElementById("galaxyeatercost").innerHTML = 0;
+        document.getElementById("galaxyeaters").innerHTML = 0;
       }
 
       function updateScorePerSecond() {
